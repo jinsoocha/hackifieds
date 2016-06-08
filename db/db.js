@@ -41,7 +41,9 @@ var Listing = db.define('Listing', {
   location: { type: Sequelize.STRING(100), allowNull: false },
   price: { type: Sequelize.DECIMAL(10, 2) },
   startDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-  endDate: { type: Sequelize.DATE }
+  endDate: { type: Sequelize.DATE },
+  roomtype: { type: Sequelize.STRING(100) },
+  distance: { type: Sequelize.FLOAT },
 });
 
 // Image model
