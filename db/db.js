@@ -2,7 +2,7 @@
 var Sequelize = require('sequelize');
 
 // create database connection
-var db = new Sequelize('hackifieds', 'root', 'your-own-password', {
+var db = new Sequelize('hackifieds', 'root', 'ckwlstn', {
   host: 'localhost',
   dialect: 'mysql',
 
@@ -20,6 +20,7 @@ var User = db.define('User', {
   firstName: { type: Sequelize.STRING(100), allowNull: true },
   lastName: { type: Sequelize.STRING(100), allowNull: true },
   email: { type: Sequelize.STRING(100), allowNull: true },
+  profilePic: { type: Sequelize.STRING(100), allowNull: true },
   phone: Sequelize.STRING(100),
   school: { type: Sequelize.STRING(100), allowNull: true },
   cohort: { type: Sequelize.STRING(100), allowNull: true }
