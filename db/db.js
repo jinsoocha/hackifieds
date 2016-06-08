@@ -2,7 +2,7 @@
 var Sequelize = require('sequelize');
 
 // create database connection
-var db = new Sequelize('hackifieds', 'root', 'ckwlstn', {
+var db = new Sequelize('hackifieds', 'root', '1111', {
   host: 'localhost',
   dialect: 'mysql',
 
