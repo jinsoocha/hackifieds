@@ -171,7 +171,7 @@ class App extends React.Component {
           {loginLogic}
         </ButtonToolbar>
         <Nav handleNavClick={this.handleNavClick.bind(this)}/>
-        <Grid className>  
+        <Grid>  
           {viewLogic}
         </Grid>
       </div>
