@@ -162,11 +162,6 @@ class App extends React.Component {
     }
 
     if (Object.keys(this.state.currentUser).length !== 0) {
-      // profile = 
-      // <div>
-      //   <img src={this.state.currentUser.profilePic} alt="Profile Pic" height="45px" width="45px" />
-      //   <div>{this.state.currentUser.firstName} {this.state.currentUser.lastName}</div>
-      // </div>;
       welcomeMsg = <span>Welcome {this.state.currentUser.firstName}!</span>;
     }
     
