@@ -3,6 +3,7 @@ var Sequelize = require('sequelize');
 
 // create database connection
 var db = new Sequelize('hackifieds', 'root', 'sehoon', {
+
   host: 'localhost',
   dialect: 'mysql',
 
