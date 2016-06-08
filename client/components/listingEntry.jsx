@@ -16,8 +16,7 @@ import helper from '../lib/helpers';
 // );
 
 const ListingEntry = (props) => {
-  const { housePic, handleListingEntryClick } = props;
-  const { profilePic } = props.user;
+  const { housePic, handleListingEntryClick, profilePic } = props;
   const { description, price, location, roomtype, distance, createdAt } = props.listing;
   const profileImg = <img src={profilePic} alt="Profile Pic" width="80px" />;
   const houseImg = <img src={housePic} alt="housePic" width="300px"/>;

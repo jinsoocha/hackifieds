@@ -110,6 +110,7 @@ class App extends React.Component {
     let profile;
     let welcomeMsg;
     let tempHousePic = "../assets/tempHouse.png";
+    let tempProfilePic = "../assets/tempProfile.png";
 
     if ( this.state.currentView === 'listingsView' ) {
       viewLogic =
@@ -124,7 +125,7 @@ class App extends React.Component {
               activeFilter={this.state.activeFilter}
               activeListing={this.state.activeListing}
               listings={this.state.listings}
-              user={this.state.currentUser}
+              profilePic={tempProfilePic}
               housePic={tempHousePic}/>
           </Col>
           <Col md={2}>
