@@ -13,3 +13,11 @@ const ListingEntry = (props) => (
 
 export default ListingEntry;
 
+// Things to have on each entry
+// Date, 
+// House picture,
+// Profile picture, 
+// Price, Location, 
+// Distance, 
+// Description, 
+// Room type (private or shared)

@@ -1,8 +1,9 @@
 // node dependencies
 var Sequelize = require('sequelize');
+var dbConfig = require('./dbPassword');
 
 // create database connection
-var db = new Sequelize('hackifieds', 'root', 'sehoon', {
+var db = new Sequelize('hackifieds', 'root', dbConfig.password, {
   host: 'localhost',
   dialect: 'mysql',
 
