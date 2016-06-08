@@ -125,6 +125,7 @@ class App extends React.Component {
               activeFilter={this.state.activeFilter}
               activeListing={this.state.activeListing}
               listings={this.state.listings}
+              user={this.state.currentUser}
               profilePic={tempProfilePic}
               housePic={tempHousePic}/>
           </Col>
