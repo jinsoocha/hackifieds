@@ -111,12 +111,12 @@ class App extends React.Component {
     if ( this.state.currentView === 'listingsView' ) {
       viewLogic =
         <Row>
-          <Col>
+          <Col md={2}>
             <Filter 
               handleFilterItemClick={this.handleFilterItemClick.bind(this)}
               listings={this.state.listings}/>
           </Col>
-          <Col>
+          <Col md={8}>
             <Listings 
               handleListingEntryClick={this.handleListingEntryClick.bind(this)}
               handleListingInfoClick={this.handleListingInfoClick.bind(this)}
@@ -125,6 +125,7 @@ class App extends React.Component {
               listings={this.state.listings}
               user={this.state.currentUser}/>
           </Col>
+          <Col md={2}></Col>
         </Row>;
     } else if ( (Object.keys(this.state.currentUser).length !== 0) && 
                 (this.state.currentView === 'newListingView') ) {
@@ -160,7 +161,7 @@ class App extends React.Component {
           {loginLogic}
         </ButtonToolbar>
         <Nav handleNavClick={this.handleNavClick.bind(this)}/>
-        <Grid>  
+        <Grid className>  
           {viewLogic}
         </Grid>
       </div>
