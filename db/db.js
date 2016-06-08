@@ -1,8 +1,9 @@
 // node dependencies
 var Sequelize = require('sequelize');
+var dbConfig = require('./dbPassword');
 
 // create database connection
-var db = new Sequelize('hackifieds', 'root', 'sehoon', {
+var db = new Sequelize('hackifieds', 'root', dbConfig.password, {
   host: 'localhost',
   dialect: 'mysql',
 
@@ -40,7 +41,9 @@ var Listing = db.define('Listing', {
   location: { type: Sequelize.STRING(100), allowNull: false },
   price: { type: Sequelize.DECIMAL(10, 2) },
   startDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-  endDate: { type: Sequelize.DATE }
+  endDate: { type: Sequelize.DATE },
+  roomtype: { type: Sequelize.STRING(100) },
+  distance: { type: Sequelize.FLOAT },
 });
 
 // Image model
