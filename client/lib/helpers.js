@@ -19,7 +19,7 @@ let getListings = (category, callback) => {
     error: err => console.log( 'Error getting listings from server.', err)
   });
 };
-
+  
 let postListing = (formData, callback) => {
   $.ajax({
     url: '/api/listings',
