@@ -120,7 +120,7 @@ app.route('/api/listings')
   })
   .post(upload.array('images', 12), function(req, res) {
     console.log('receiving location', req.body.location);
-    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=AIzaSyDQjkKdyDWtjOtFZY1QYd_1Yipv7wBaDtc';
+    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=your-own-api-key';
     var options = {
       url: distanceApi,
     };
