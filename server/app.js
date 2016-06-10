@@ -119,10 +119,31 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
-    listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-      res.status(statusCode).send(results);
+    console.log('receiving location', req.body.location);
+    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=your-own-api-key';
+    var options = {
+      url: distanceApi,
+    };
+    request(options, function (err, data) {
+      if (err) {
+        return console.log(err);
+      } else {
+        var distanceData = JSON.parse(data.body);
+        console.log(typeof distanceData, distanceData);
+        if (distanceData.status === 'OK' && distanceData.routes) {
+          if (distanceData.routes.length > 0) {
+            var distance = distanceData.routes[0].legs[0].distance.text;
+            req.body.distance = distance;
+            console.log('distance inserted', req.body);
+            listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+              res.status(statusCode).send(results);
+            });
+          }
+        }
+      }
     });
   });
+
 app.route('/api/categories')
   .get(function(req, res) {
     categoriesController.getAll(function(statusCode, results) {
@@ -131,7 +152,7 @@ app.route('/api/categories')
   });
 app.route('/api/auth')
   .get(function(req, res) {
-    console.log(orgs, 'Req session before', req.session);
+    console.log('Req session before', req.session,"req user",req.user);
     res.send(req.user);
   });
 
@@ -140,6 +161,7 @@ app.get('/api/logout', function(req, res) {
     console.log( req.session);
     res.redirect('/');
   });
+
 });
 
 // ********** FILTERING ********** \\
@@ -157,4 +179,3 @@ console.log( 'hackifieds server listening on 3000....' );
 app.listen(3000);
 
 module.exports.app = app;
-
