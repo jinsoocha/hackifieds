@@ -1,26 +1,38 @@
-let getCategories = callback => {
+const getCategories = callback => {
   $.ajax({
     url: '/api/categories',
     method: 'GET',
     contentType: 'application/json',
     success: data => callback(data),
-    error: err => console.log( 'Error getting categories from server.', err)
+    error: err => console.log( 'Error getting categories from server.', err),
   });
 };
 
 //Helper functions performing AJAX requests
-let getListings = (category, callback) => {
+const getListings = (category, callback) => {
   $.ajax({
     url: '/api/listings',
     method: 'GET',
     contentType: 'application/json',
     data: {category},
     success: data => callback(data),
-    error: err => console.log( 'Error getting listings from server.', err)
+    error: err => console.log( 'Error getting listings from server.', err),
   });
 };
-  
-let postListing = (formData, callback) => {
+
+const getFilteredResults = (data, callback) => {
+  $.ajax({
+    url: '/api/filters',
+    method: 'GET',
+    contentType: 'application/json',
+    data: data,
+    success: data => callback(data),
+    error: err => console.log('Error getting filtered results from server', err),
+  })
+}
+
+
+const postListing = (formData, callback) => {
   $.ajax({
     url: '/api/listings',
     method: 'POST',
@@ -28,31 +40,31 @@ let postListing = (formData, callback) => {
     processData: false,
     data: formData,
     success: data => callback(data),
-    error: err => console.log( 'Error sending listing to server.', err)
+    error: err => console.log( 'Error sending listing to server.', err),
   });
 };
 
-let userAuth = callback => {
+const userAuth = callback => {
   $.ajax({
     url: '/api/auth',
     method: 'GET',
     success: data => {
       callback(data);
     },
-    error: err => console.log( 'Error getting session from server.', err)
+    error: err => console.log( 'Error getting session from server.', err),
   });
 };
 
-let logout = callback => {
+const logout = callback => {
   $.ajax({
     url: '/api/logout',
     method: 'GET',
     success: data => callback(data),
-    error: err => console.log( 'Error logging out.', err)
+    error: err => console.log( 'Error logging out.', err),
   });
 };
 
-let dateFormatter = date => {
+const dateFormatter = date => {
   let months = {
     0: 'Jan',
     1: 'Feb',
@@ -74,5 +86,5 @@ let dateFormatter = date => {
   return months[month] + ' ' + day;
 };
 
-export default { getCategories, getListings, postListing, userAuth, dateFormatter, logout};
+export default { getCategories, getListings, postListing, userAuth, dateFormatter, logout, getFilteredResults};
 
