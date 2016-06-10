@@ -17,6 +17,9 @@ github_oauth.js
 uploads/
 db/dbPassword.js
 
+# WORKFLOW
+notes.todo
+
 # Floobits
 .floo
 .floobit
