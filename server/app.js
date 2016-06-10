@@ -51,7 +51,7 @@ passport.use(new GitHubStrategy({
 },
 function(accessToken, refreshToken, profile, done) {
   console.log('profile: ', profile);
-  orgs = 'https://api.github.com/users/' + profile.username + '/orgs';
+  orgs = 'https://api.github.com/users/' + profile.username + '/orgs?client_id=' + github.GITHUB_CLIENT_ID + '&client_secret=' + github.GITHUB_CLIENT_SECRET;  
   var options = {
     url: orgs,
     headers: {
