@@ -10,7 +10,6 @@ class Parent extends React.Component {
   }
   componentWillMount () {
     helpers.userAuth((user) => {
-      console.log('authenticating user', user);
       user = user || {};
       this.setState({
         currentUser: user,
@@ -18,9 +17,16 @@ class Parent extends React.Component {
     });
   }
   render() {
+    let loginButton;
+    if(Object.keys(this.state.currentUser).length === 0) {
+      loginButton = <a className="btn top-btn" href="/auth/github">Login with GitHub</a>;
+    } else {
+      loginButton = <a className="btn top-btn" href="/api/logout">Logout</a>;
+    }
+
     return (
       <div>
-      <a className="btn top-btn" href="/auth/github">Login with GitHub</a>
+        {loginButton}
         <div>
           <div><Link to={{ pathname: '/', query: { type: 'rent' } }}>Rent</Link></div>
           <div><Link to={{ pathname: '/', query: { type: 'buy' } }}>Buy</Link></div>
