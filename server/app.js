@@ -50,7 +50,7 @@ passport.use(new GitHubStrategy({
 },
 function(accessToken, refreshToken, profile, done) {
   console.log('profile: ', profile);
-  orgs = 'https://api.github.com/users/' + profile.username + '/orgs';
+  orgs = 'https://api.github.com/users/' + profile.username + '/orgs?client_id=' + github.GITHUB_CLIENT_ID + '&client_secret=' + github.GITHUB_CLIENT_SECRET;  
   var options = {
     url: orgs,
     headers: {
@@ -120,7 +120,7 @@ app.route('/api/listings')
   })
   .post(upload.array('images', 12), function(req, res) {
     console.log('receiving location', req.body.location);
-    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=your-own-api-key';
+    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=' + github.GoogleMapAPIKey;
     var options = {
       url: distanceApi,
     };
