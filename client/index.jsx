@@ -6,7 +6,7 @@ import Post from './components/post.jsx';
 ReactDOM.render((
   <Router>
     <Route path="/" component={Parent}>
-      <IndexRoute component={ListingView} type={'rent'}/>      
+      <IndexRoute component={ListingView} />      
       <Route path="post" component={Post} />
     </Route>  
   </Router>

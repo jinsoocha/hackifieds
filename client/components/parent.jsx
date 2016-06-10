@@ -4,7 +4,7 @@ class Parent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {}
+      currentUser: {},
     };
 
   }
@@ -12,7 +12,9 @@ class Parent extends React.Component {
     helpers.userAuth((user) => {
       console.log('authenticating user', user);
       user = user || {};
-      this.setState({currentUser: user});
+      this.setState({
+        currentUser: user,
+      });
     });
   }
   render() {

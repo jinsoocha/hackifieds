@@ -152,7 +152,7 @@ app.route('/api/categories')
   });
 app.route('/api/auth')
   .get(function(req, res) {
-    console.log(orgs, 'Req session before', req.session);
+    console.log('Req session before', req.session,"req user",req.user);
     res.send(req.user);
   });
 

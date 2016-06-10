@@ -14,17 +14,14 @@ class ListingView extends React.Component {
     };
   }
 
-  componentWillMount() {
-    helpers.getListings(this.props.route.type, data => this.setState({listings: data}) )
-  }
-
   componentWillReceiveProps(nextProps) {
-    console.log('receiving props',nextProps.location.query.type);
+    let type;
+    type = nextProps.location.query.type || 'rent';
     this.setState({
-      page: nextProps.location.query.type,
+      page: type,
       locationForMap: '',
     });
-    helpers.getListings(nextProps.location.query.type, data => this.setState({listings: data}) )
+    helpers.getListings(type, data => this.setState({listings: data}) )
   }
 
   showDirection(location) {
