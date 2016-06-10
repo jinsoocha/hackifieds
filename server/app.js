@@ -57,7 +57,7 @@ function(accessToken, refreshToken, profile, done) {
       'User-Agent': profile.username,
     },
   };
-   
+
   request(options, function (err, data) {
     var authorized = false;
     if (err) {
@@ -69,14 +69,14 @@ function(accessToken, refreshToken, profile, done) {
           if (org.login === 'hackreactor') {
             authorized = true;
             console.log('found hackreactor as org, authenticating the user');
-            db.User.findOrCreate({ 
-              where: { 
+            db.User.findOrCreate({
+              where: {
                 username: profile.username,
                 firstName: profile.displayName.split(' ')[0],
                 lastName: profile.displayName.split(' ')[profile.displayName.split(' ').length - 1],
                 email: profile.emails[0].value,
                 profilePic: profile._json.avatar_url,
-              } 
+              }
             })
             .spread(function(user, created) {
               return done(null, user);
@@ -85,7 +85,7 @@ function(accessToken, refreshToken, profile, done) {
         });
         if (!authorized) {
           return done('Sorry, you are not part of the Hack Reactor community. If you are, please make your Hack Reactor organization visibility public on github. Please refer to https://help.github.com/articles/publicizing-or-hiding-organization-membership/');
-        } 
+        }
       } else {
         return done('You do not have any public organizations.');
       }
@@ -119,31 +119,10 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
-    console.log('receiving location', req.body.location);
-    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=your-own-api-key';
-    var options = {
-      url: distanceApi,
-    };
-    request(options, function (err, data) {
-      if (err) {
-        return console.log(err);
-      } else {
-        var distanceData = JSON.parse(data.body);
-        console.log(typeof distanceData, distanceData);
-        if (distanceData.status === 'OK' && distanceData.routes) {
-          if (distanceData.routes.length > 0) {
-            var distance = distanceData.routes[0].legs[0].distance.text;
-            req.body.distance = distance;
-            console.log('distance inserted', req.body);
-            listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-              res.status(statusCode).send(results);
-            });
-          }
-        }
-      }
-    });                
+    listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+      res.status(statusCode).send(results);
+    });
   });
-
 app.route('/api/categories')
   .get(function(req, res) {
     categoriesController.getAll(function(statusCode, results) {
@@ -152,7 +131,7 @@ app.route('/api/categories')
   });
 app.route('/api/auth')
   .get(function(req, res) {
-    console.log('Req session before', req.session,"req user",req.user);
+    console.log(orgs, 'Req session before', req.session);
     res.send(req.user);
   });
 
@@ -161,8 +140,17 @@ app.get('/api/logout', function(req, res) {
     console.log( req.session);
     res.redirect('/');
   });
-
 });
+
+// ********** FILTERING ********** \\
+app.route('/api/filters')
+  .get(function(req, res) {
+    console.log('$$$$req', req.query);
+    listingsCtrl.getFiltered(req.query, function(statusCode, results) {
+      res.status(statusCode).send(results);
+      console.log('$$$$results', results);
+    });
+  });
 
 // Start server, listen for client requests on designated port
 console.log( 'hackifieds server listening on 3000....' );
