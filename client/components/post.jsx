@@ -66,15 +66,15 @@ const Post = () => {
         <ControlLabel>Room Type</ControlLabel>
           <Radio
             name="radio"
-            onChange={ e => setListingField('roomtype', 'privateRoom') }>
+            onChange={ e => setListingField('roomtype', 'Private room') }>
             Private room</Radio>
           <Radio
             name="radio"
-            onChange={ e => setListingField('roomtype', 'sharedRoom') }>
+            onChange={ e => setListingField('roomtype', 'Shared room') }>
             Shared room</Radio>
           <Radio
             name="radio" 
-            onChange={ e => setListingField('roomtype', 'entireHome') }>
+            onChange={ e => setListingField('roomtype', 'Entire home/apt') }>
             Entire home/apt</Radio>
       </FormGroup>
 
