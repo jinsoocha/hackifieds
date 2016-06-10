@@ -10,7 +10,6 @@ class Parent extends React.Component {
   }
   componentWillMount () {
     helpers.userAuth((user) => {
-      console.log('authenticating user', user);
       user = user || {};
       this.setState({
         currentUser: user,
