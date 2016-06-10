@@ -167,7 +167,7 @@ app.get('/api/logout', function(req, res) {
 // ********** FILTERING ********** \\
 app.route('/api/filters')
   .get(function(req, res) {
-    console.log('$$$$req', req.query);
+    console.log('$$$$req', req.data);
     listingsCtrl.getFiltered(req.query, function(statusCode, results) {
       res.status(statusCode).send(results);
       console.log('$$$$results', results);

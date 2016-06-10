@@ -1,16 +1,17 @@
 const FilterView = (props) => {
 
-  const data = {};
   const handleFilterSubmit = function(e) {
     const target = e.target.name
+    let data;
     if (target === 'Distance') {
-      data.distance = e.target.value;
+      data = ['distance', e.target.value];
     } else if (target === 'Price') {
-      data.price = e.target.value;
+      data = ['price', e.target.value];
     } else if (target === 'RoomType') {
-      data.roomtype = e.target.value;
+      data = ['roomtype', e.target.value];
     }
-    data.category = props.page;
+    // data = ['category', props.page];
+    console.log('filterdata', data);
     props.handleClick(data);
   }
 

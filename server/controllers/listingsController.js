@@ -33,7 +33,8 @@ exports.getAll = function(category, callback) {
 // Controller method - get filtered results
 exports.getFiltered = function(filters, callback) {
   // constructing where object body
-  const filteredWhere = {};
+  console.log('filters', filters);
+  let filteredWhere = {};
   if (Object.keys(filters).length <= 1) {
     filteredWhere = {};
   } else {
@@ -49,7 +50,14 @@ exports.getFiltered = function(filters, callback) {
       console.log(filteredWhere.price);
     }
     // filter location
-    if (filters.location !== undefined) { filteredWhere.location = filters.location; }
+    if (filters.distance !== undefined) {
+      if (filters.distance !== '11') {
+        distance = {$lte: filters.distance};
+      } else {
+        distance = {$gte: filters.distance};
+      }
+      filteredWhere.distance = distance;
+    }
   }
   db.Listing.findAll({
     include:
@@ -77,6 +85,7 @@ exports.getFiltered = function(filters, callback) {
       console.error(error);
       callback(404, error);
     });
+    console.log('fW', filteredWhere);
 };
 
 //Controller method - add a listings to DB

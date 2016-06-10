@@ -11,6 +11,7 @@ class ListingView extends React.Component {
       page: 'rent',
       listings: [],
       locationForMap: '',
+      data: {},
     };
   }
 
@@ -32,7 +33,9 @@ class ListingView extends React.Component {
 
   // ****** FILTERING ****** \\
   handleFilterItemClick(data) {
-    helpers.getFilteredResults(data, filters => this.setState({listings: filters}));
+    this.state.data[data[0]] = data[1];
+    console.log('statedata', this.state.data);
+    helpers.getFilteredResults(this.state.data, filters => this.setState({listings: filters}));
   }
 
   render () {

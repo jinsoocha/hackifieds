@@ -21,6 +21,8 @@ const getListings = (category, callback) => {
 };
 
 const getFilteredResults = (data, callback) => {
+  console.log('gFE data: ', data);
+
   $.ajax({
     url: '/api/filters',
     method: 'GET',
