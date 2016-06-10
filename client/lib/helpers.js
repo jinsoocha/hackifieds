@@ -19,7 +19,7 @@ let getListings = (category, callback) => {
     error: err => console.log( 'Error getting listings from server.', err)
   });
 };
-
+  
 let postListing = (formData, callback) => {
   $.ajax({
     url: '/api/listings',
@@ -38,7 +38,6 @@ let userAuth = callback => {
     method: 'GET',
     success: data => {
       callback(data);
-      globalVar.callback(data);
     },
     error: err => console.log( 'Error getting session from server.', err)
   });
