@@ -42,6 +42,7 @@ var Listing = db.define('Listing', {
   price: { type: Sequelize.DECIMAL(10, 2) },
   startDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
   endDate: { type: Sequelize.DATE },
+  contactNum: { type: Sequelize.STRING(100) },
   roomtype: { type: Sequelize.STRING(100) },
   distance: { type: Sequelize.STRING(100) },
   duration: { type: Sequelize.STRING(100) },
