@@ -21,7 +21,8 @@ class ListingView extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log('receiving props',nextProps.location.query.type);
     this.setState({
-      page: nextProps.location.query.type
+      page: nextProps.location.query.type,
+      locationForMap: '',
     });
     helpers.getListings(nextProps.location.query.type, data => this.setState({listings: data}) )
   }
