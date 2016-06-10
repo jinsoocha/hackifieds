@@ -1,6 +1,7 @@
 // node dependencies
 var express = require('express');
 var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -119,30 +120,37 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
-    console.log('receiving location', req.body.location);
-    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=your-own-api-key';
-    var options = {
-      url: distanceApi,
-    };
-    request(options, function (err, data) {
-      if (err) {
-        return console.log(err);
-      } else {
-        var distanceData = JSON.parse(data.body);
-        console.log(typeof distanceData, distanceData);
-        if (distanceData.status === 'OK' && distanceData.routes) {
-          if (distanceData.routes.length > 0) {
-            var distance = distanceData.routes[0].legs[0].distance.text;
-            req.body.distance = distance;
-            console.log('distance inserted', req.body);
-            listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-              res.status(statusCode).send(results);
-            });
-          }
-        }
-      }
+    console.log('sehoon:', req.user);
+    req.body.categoryId = 1;
+    req.body.userId = 1;
+    listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+      res.status(statusCode).send(results);
     });
   });
+  //   console.log('receiving location', req.body.location);
+  //   var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + 'AIzaSyDQjkKdyDWtjOtFZY1QYd_1Yipv7wBaDtc';
+  //   var options = {
+  //     url: distanceApi,
+  //   };
+  //   request(options, function (err, data) {
+  //     if (err) {
+  //       return console.log(err);
+  //     } else {
+  //       var distanceData = JSON.parse(data.body);
+  //       console.log(typeof distanceData, distanceData);
+  //       if (distanceData.status === 'OK' && distanceData.routes) {
+  //         if (distanceData.routes.length > 0) {
+  //           var distance = distanceData.routes[0].legs[0].distance.text;
+  //           req.body.distance = distance;
+  //           console.log('distance inserted', req.body);
+  //           listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+  //             res.status(statusCode).send(results);
+  //           });
+  //         }
+  //       }
+  //     }
+  //   });
+  // });
 
 app.route('/api/categories')
   .get(function(req, res) {

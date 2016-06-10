@@ -101,7 +101,7 @@ exports.addOne = function(listing, images, callback) {
       callback(201, listing);
     })
     .catch(function(error) {
-      console.error(error);
+      console.error('posting new one error', error);
       callback(404, error);
     });
 };

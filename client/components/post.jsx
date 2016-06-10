@@ -3,24 +3,35 @@ import { Col, Row, Button, FormGroup, FormControl, ControlLabel, Radio } from 'r
 
 const Post = () => {
   let newListing = {};
-  let images = [];
+  let imageUpload = [];
 
   const setListingField = (field, value) => {
     newListing[field] = value;
+    console.log(newListing);
   };
+  
+  const setUploadImage = (images) => {
+    imageUpload = images;
+    console.dir(images);
+  }
 
   const sendListing = (newListing, images) => {
     const formData = new FormData();
-    _.each(newListing, (value, key) => formData.append(key, value) );
-    helpers.postListing(formData, (data) => console.log("postListing SUCCESS", data) );
+    formData.append('images', images);
+    _.each(newListing, (value, key) => formData.append(key, value));
+    helpers.postListing(formData, (data) => {
+      console.log("postListing SUCCESS", data);
+      window.location = '/';
+    });
   }
   
   const submitHandler = () => {
-    sendListing(newListing, images);
+    sendListing(newListing, imageUpload);
+    console.log('clicked submit')
   }
   
   return (
-    <FormGroup>
+    <form>
       <FormGroup>
         <ControlLabel>Title</ControlLabel>
         <FormControl
@@ -28,7 +39,7 @@ const Post = () => {
           name="title"
           placeholder="Enter the title of your listing here"
           onChange={ e => setListingField('title', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
@@ -38,7 +49,7 @@ const Post = () => {
           name="location"
           placeholder="Enter your location"
           onChange={ e => setListingField('location', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
@@ -48,22 +59,22 @@ const Post = () => {
           name="price"
           placeholder="Enter the price"
           onChange={ e => setListingField('price', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
         <ControlLabel>Room Type</ControlLabel>
           <Radio
             name="radio"
-            onChange={ e => setListingField('privateRoom', e.target.value) }>
+            onChange={ e => setListingField('roomtype', 'privateRoom') }>
             Private room</Radio>
           <Radio
             name="radio"
-            onChange={ e => setListingField('sharedRoom', e.target.value) }>
+            onChange={ e => setListingField('roomtype', 'sharedRoom') }>
             Shared room</Radio>
           <Radio
             name="radio" 
-            onChange={ e => setListingField('entirePlace', e.target.value) }>
+            onChange={ e => setListingField('roomtype', 'entireHome') }>
             Entire home/apt</Radio>
       </FormGroup>
 
@@ -74,7 +85,7 @@ const Post = () => {
           name="contactNum"
           placeholder="Enter your contact number"
           onChange={ e => setListingField('contactNum', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
@@ -84,7 +95,7 @@ const Post = () => {
           name="email"
           placeholder="Enter your email address"
           onChange={ e => setListingField('email', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
@@ -93,7 +104,7 @@ const Post = () => {
           type="date"
           name="startDate"
           onChange={ e => setListingField('startDate', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
@@ -102,7 +113,7 @@ const Post = () => {
           type="date"
           name="endDate"
           onChange={ e => setListingField('endDate', e.target.value) }
-          required />
+          required="required" />
       </FormGroup>
 
       <FormGroup>
@@ -111,8 +122,7 @@ const Post = () => {
           type="textarea"
           name="description"
           placeholder="Enter the details of your listing"
-          onChange={ e => setListingField('description', e.target.value) }
-          required />
+          onChange={ e => setListingField('description', e.target.value) } />
       </FormGroup>
 
       <FormGroup>
@@ -121,20 +131,18 @@ const Post = () => {
           type="file"
           name="images"
           placeholder="Enter the details of your listing"
-          onChange={ e => setUploadImage(e.target.files) }
-          multiple />
+          onChange={ e => setUploadImage(e.target.files) } />
       </FormGroup>
       <Button type="submit" onClick={ () => submitHandler() }>Submit</Button>
-    </FormGroup>
+    </form>
   );
      
 };
 
+export default Post;
 // 1. Date, 
 // 2. House picture,
 // 4. Price,
 // 5. Location, 
 // 7. Description, 
 // 8. Room type (Private room or Shared or Entire home/apt)
-
-export default Post;
