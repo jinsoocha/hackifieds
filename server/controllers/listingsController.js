@@ -33,7 +33,6 @@ exports.getAll = function(category, callback) {
 // Controller method - get filtered results
 exports.getFiltered = function(filters, callback) {
   // constructing where object body
-  console.log('filters', filters);
   let filteredWhere = {};
   if (Object.keys(filters).length <= 1) {
     filteredWhere = {};
@@ -59,6 +58,7 @@ exports.getFiltered = function(filters, callback) {
     } else {
         delete filteredWhere.distance;
     }
+
   }
   console.log('filteredWhere: ', filteredWhere);
   db.Listing.findAll({
@@ -70,18 +70,17 @@ exports.getFiltered = function(filters, callback) {
     },
     {
       model: db.User,
-      attributes: ['username', 'phone', 'email']
+      attributes: ['firstName', 'lastName', 'phone', 'email', 'profilePic']
     },
     {
       model: db.Image,
       attributes: ['path']
     }],
     order: 'createdAt DESC',
-    where: filteredWhere, raw: true
+    where: filteredWhere
   })
     .then(function(listings) {
       callback(200, listings);
-      console.log('$$$$listings', listings);
     })
     .catch(function(error) {
       console.error(error);

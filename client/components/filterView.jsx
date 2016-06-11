@@ -41,9 +41,9 @@ const RentFilterView = (props) => {
       <h4>Room Type</h4>
         <select name="RoomType" id="roomtype" onChange={handleFilterSubmit.bind(this)}>
             <option value="All">All</option>
-            <option value="Private">Private</option>
-            <option value="Shared">Shared</option>
-            <option value="House">House</option>
+            <option value="Private room">Private room</option>
+            <option value="Shared room">Shared room</option>
+            <option value="Entire home/apt">Entire home/apt</option>
         </select>
       </div>
     </form>

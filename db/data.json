@@ -63,7 +63,7 @@
         "endDate": "2016-10-01",
         "userId": 1,
         "categoryId": 1,
-        "roomtype": "Shared",
+        "roomtype": "Shared room",
         "distance": "10.8"
       },
       {
@@ -75,6 +75,7 @@
         "endDate": "2016-10-01",
         "userId": 2,
         "categoryId": 1,
+        "roomtype": "Private Room",
         "distance": "2.8"
       },
       {
@@ -86,6 +87,7 @@
         "endDate": "2016-09-01",
         "userId": 3,
         "categoryId": 1,
+        "roomtype": "Entire home/apt",
         "distance": "1.8"
       },
       {
@@ -117,6 +119,7 @@
         "endDate": "2016-11-06",
         "userId": 2,
         "categoryId": 1,
+        "roomtype": "Entire home/apt",
         "distance": "4.8"
       },
       {
@@ -147,6 +150,7 @@
         "endDate": "2016-10-01",
         "userId": 1,
         "categoryId": 1,
+        "roomtype": "Shared room",
         "distance": "15.8"
       },
       {
@@ -167,6 +171,7 @@
         "endDate": "2016-10-01",
         "userId": 1,
         "categoryId": 1,
+        "roomtype": "Private room",
         "distance": "0.8"
       },
       {

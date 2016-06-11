@@ -45,6 +45,7 @@ class ListingView extends React.Component {
     this.state.data.category = this.state.page;
     console.log('statedata', this.state.data);
     helpers.getFilteredResults(this.state.data, filters => this.setState({listings: filters}));
+    // helpers.getFilteredResults(this.state.data, filters => console.log('listings: ', JSON.stringify(filters)));
   }
 
   render () {
