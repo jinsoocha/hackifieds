@@ -15,9 +15,7 @@ class ListingView extends React.Component {
   }
   
   componentWillMount() {
-    console.log(this.props.location.query.type)
-    let type;
-    type = this.props.location.query.type || 'rent';
+    let type = this.props.location.query.type || 'rent';
     this.setState({
       page: type,
       locationForMap: '',
@@ -26,9 +24,7 @@ class ListingView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.location.query)
-    let type;
-    type = nextProps.location.query.type || 'rent';
+    let type = nextProps.location.query.type || 'rent';
     this.setState({
       page: type,
       locationForMap: '',
