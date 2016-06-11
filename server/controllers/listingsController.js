@@ -103,14 +103,14 @@ exports.addOne = function(listing, images, callback) {
               console.log('Image upload successful');
             })
             .catch(function(error) {
-              console.error(error);
+              console.error('image upload error', error);
             });
         });
       }
       callback(201, listing);
     })
     .catch(function(error) {
-      console.error(error);
+      console.error('posting new one error', error);
       callback(404, error);
     });
 };

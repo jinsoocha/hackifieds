@@ -119,6 +119,8 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
+    req.body.categoryId = 1;
+    req.body.userId = 1;
     console.log('receiving location', req.body.location);
     var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=' + github.GoogleMapAPIKey;
     var options = {
@@ -136,7 +138,7 @@ app.route('/api/listings')
             req.body.distance = distance;
             console.log('distance inserted', req.body);
             listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-              res.status(statusCode).send(results);
+              res.status(statusCode).send(results.dataValues);
             });
           }
         }

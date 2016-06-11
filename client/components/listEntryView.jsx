@@ -2,7 +2,7 @@ import { Row, Col, Jumbotron, Panel } from 'react-bootstrap';
 import helper from '../lib/helpers';
 
 const ListEntryView = (props) => {
-  const { description, price, location, roomtype, distance, createdAt } = props.listing;
+  const { Images, description, price, location, roomtype, distance, createdAt } = props.listing;
   const profileImg = <img src="../assets/tempProfile.png" alt="Profile Pic" width="80px"/>;
   const houseImg = <img src="../assets/tempHouse.png" alt="housePic" width="300px"/>;
 
@@ -15,6 +15,11 @@ const ListEntryView = (props) => {
     <div>
       <Jumbotron>
         <Panel>
+          <div>{Images.map(image =>
+            <div className="listing-image">
+              <img src={image.path}/>
+            </div>)}
+          </div>
           <Row>
             <Col md={2}>{helper.dateFormatter(createdAt)}</Col>
             <Col md={2}>${price}</Col>
