@@ -48,6 +48,11 @@ class ListingView extends React.Component {
     // helpers.getFilteredResults(this.state.data, filters => console.log('listings: ', JSON.stringify(filters)));
   }
 
+  refresh() {
+    console.log('refresh');
+    helpers.getListings(this.state.page, data => this.setState({listings: data}) )
+  }
+
   render () {
     return (
       <Row>
@@ -57,7 +62,7 @@ class ListingView extends React.Component {
         <Col md={9}>
         <DirectionView location={this.state.locationForMap} />
         {this.state.listings.map((listing, i) =>
-          <ListEntryView key={i} page={this.state.page} currentUser={this.props.user} show={this.showDirection.bind(this)} listing={listing} />
+          <ListEntryView key={i} page={this.state.page} currentUser={this.props.user} show={this.showDirection.bind(this)} listing={listing} refresh={this.refresh.bind(this)} />
         )}
         </Col>
       </Row>
