@@ -58,7 +58,7 @@ class DirectionView extends React.Component {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         var newDiv = document.getElementById("contents"); 
-        newDiv.innerHTML = "Hack Reactor is " + response.routes[0].legs[0].distance.text + " away from " + context.props.location + "<br/><br/>It takes "+response.routes[0].legs[0].duration.text + " by " + selectedMode; 
+        newDiv.innerHTML = "Hack Reactor is " + response.routes[0].legs[0].distance.text + " away from " + context.props.location + "<br/><br/>It takes "+response.routes[0].legs[0].duration.text + " by " + selectedMode.toLowerCase(); 
       }
     });
   }
