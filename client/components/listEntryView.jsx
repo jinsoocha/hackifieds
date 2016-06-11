@@ -4,6 +4,7 @@ import helper from '../lib/helpers';
 const ListEntryView = (props) => {
   const { contactNum, title, User, Images, description, price, location, roomtype, distance, createdAt } = props.listing;
   const dollarPrice = price ? '$' + price : '';
+
   const handleClick = (e) => {
     e.preventDefault();
     props.show(location);
