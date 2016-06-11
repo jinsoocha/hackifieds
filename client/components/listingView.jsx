@@ -58,7 +58,6 @@ class ListingView extends React.Component {
         <DirectionView location={this.state.locationForMap} />
         {this.state.listings.map((listing, i) =>
           <ListEntryView key={i} page={this.state.page} currentUser={this.props.user} show={this.showDirection.bind(this)} listing={listing} refresh={this.refresh.bind(this)} />
-          <ListEntryView key={i} page={this.state.page} currentUser={this.props.user} show={this.showDirection.bind(this)} listing={listing} />
         )}
         </Col>
       </Row>
