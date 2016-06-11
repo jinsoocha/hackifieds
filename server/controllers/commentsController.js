@@ -92,7 +92,7 @@ var postComment = function(req, res) {
       text: req.body.text, 
       listingId: req.body.id
     };
-    if (req.body.commentId) {
+    if (req.body.commentId && req.body.commentId !== 'top') {
       comment.parentId = req.body.commentId;
     }
     addComment(comment)

@@ -18,6 +18,11 @@ exports.getAll = function(category, callback) {
     {
       model: db.Image,
       attributes: ['path']
+    },
+    {
+      model: db.Comment,
+      attributes: ['commentId', 'private', 'text', 'parentId'],
+      order: 'createdAt DESC'
     }],
     order: 'createdAt DESC'
   })
