@@ -13,10 +13,17 @@ class ListingView extends React.Component {
       locationForMap: '',
     };
   }
+  componentWillMount() {
+    let type = this.props.location.query.type || 'rent';
+    this.setState({
+      page: type,
+      locationForMap: '',
+    });
+    helpers.getListings(type, data => this.setState({listings: data}) )
+  }
 
   componentWillReceiveProps(nextProps) {
-    let type;
-    type = nextProps.location.query.type || 'rent';
+    let type = nextProps.location.query.type || 'rent';
     this.setState({
       page: type,
       locationForMap: '',
