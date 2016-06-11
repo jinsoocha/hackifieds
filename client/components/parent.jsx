@@ -1,10 +1,13 @@
 import helpers from '../lib/helpers.js';
+import Post from './post.jsx';
+import { Grid, Row, Col, Nav, ButtonGroup, Button } from 'react-bootstrap';
 
 class Parent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: {},
+      filterType: 'rent'
     };
 
   }
@@ -16,25 +19,60 @@ class Parent extends React.Component {
       });
     });
   }
+  
+  changeFilterType(filterType) {
+    this.setState({ filterType });
+  }
+
   render() {
-    let loginButton;
-    if(Object.keys(this.state.currentUser).length === 0) {
-      loginButton = <a className="btn top-btn" href="/auth/github">Login with GitHub</a>;
-    } else {
-      loginButton = <a className="btn top-btn" href="/api/logout">Logout</a>;
-    }
+    const loginButton = (Object.keys(this.state.currentUser).length === 0) ? 
+      <Button href="/auth/github">Login with GitHub</Button> : 
+      <Button href="/api/logout">Logout</Button>;
 
     return (
-      <div>
+      <Grid>           
         {loginButton}
-        <div>
-          <div><Link to={{ pathname: '/', query: { type: 'rent' } }}>Rent</Link></div>
-          <div><Link to={{ pathname: '/', query: { type: 'buy' } }}>Buy</Link></div>
-          <div><Link to={{ pathname: '/', query: { type: 'hack' } }}>Hack</Link></div>
-          <div><Link to="post">Post</Link></div>
-        </div>
-        {React.cloneElement(this.props.children, { user: this.state.currentUser })}
-      </div>
+        <ButtonGroup>
+          <Button>
+            <Link to={{ 
+              pathname: '/', 
+              query: { 
+                type: 'rent' 
+              } }}>Rent</Link>
+          </Button>
+
+          <Button>
+            <Link to={{ 
+              pathname: '/', 
+              query: { 
+                type: 'buy' 
+              } }}>Buy</Link>
+          </Button>
+
+          <Button>
+            <Link to={{ 
+              pathname: '/', 
+              query: { 
+                type: 'hack' 
+              } 
+            }}>Hack</Link>
+          </Button>
+
+          <Button>
+            <Link to={{ 
+              pathname: '/post',
+            }}>Post</Link>
+          </Button>
+        </ButtonGroup>
+      
+        <Grid>
+          {React.cloneElement(this.props.children, { 
+            user: this.state.currentUser, 
+            formType: this.state.filterType, 
+            changeFilter: this.changeFilterType.bind(this)
+          })}
+        </Grid>
+      </Grid>
     );
   }
 };
