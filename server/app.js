@@ -1,7 +1,6 @@
 // node dependencies
 var express = require('express');
 var session = require('express-session');
-var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -120,11 +119,10 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
-    console.log('sehoon:', req.usexr);
     req.body.categoryId = 1;
     req.body.userId = 1;
     console.log('receiving location', req.body.location);
-    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + 'AIzaSyDQjkKdyDWtjOtFZY1QYd_1Yipv7wBaDtc';
+    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=' + github.GoogleMapAPIKey;
     var options = {
       url: distanceApi,
     };
@@ -140,7 +138,7 @@ app.route('/api/listings')
             req.body.distance = distance;
             console.log('distance inserted', req.body);
             listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-              res.status(statusCode).send(results);
+              res.status(statusCode).send(results.dataValues);
             });
           }
         }

@@ -17,7 +17,7 @@ const Post = () => {
 
   const sendListing = (newListing, images) => {
     const formData = new FormData();
-    formData.append('images', images);
+    _.each(images, (file) => formData.append('images', file));
     _.each(newListing, (value, key) => formData.append(key, value));
     helpers.postListing(formData, (data) => {
       console.log("postListing SUCCESS", data);
@@ -25,7 +25,8 @@ const Post = () => {
     });
   }
   
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     sendListing(newListing, imageUpload);
     console.log('clicked submit')
   }
@@ -133,7 +134,7 @@ const Post = () => {
           placeholder="Enter the details of your listing"
           onChange={ e => setUploadImage(e.target.files) } />
       </FormGroup>
-      <Button type="submit" onClick={ () => submitHandler() }>Submit</Button>
+      <Button type="submit" onClick={ submitHandler }>Submit</Button>
     </form>
   );
      
