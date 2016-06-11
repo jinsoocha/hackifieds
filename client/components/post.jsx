@@ -21,14 +21,12 @@ const Post = () => {
     _.each(newListing, (value, key) => formData.append(key, value));
     helpers.postListing(formData, (data) => {
       console.log("postListing SUCCESS", data);
-      window.location = '/';
     });
   }
   
   const submitHandler = (e) => {
     e.preventDefault();
     sendListing(newListing, imageUpload);
-    console.log('clicked submit')
   }
   
   return (
@@ -141,9 +139,3 @@ const Post = () => {
 };
 
 export default Post;
-// 1. Date, 
-// 2. House picture,
-// 4. Price,
-// 5. Location, 
-// 7. Description, 
-// 8. Room type (Private room or Shared or Entire home/apt)

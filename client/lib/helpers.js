@@ -40,9 +40,7 @@ const postListing = (formData, callback) => {
     processData: false,
     data: formData,
     success: data => callback(data),
-    error: err => {
-      console.log( 'Error sending listing to server.', err)
-    },
+    error: err => console.log( 'Error sending listing to server.', err),
   });
 };
 

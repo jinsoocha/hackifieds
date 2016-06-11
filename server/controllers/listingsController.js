@@ -83,21 +83,18 @@ exports.getFiltered = function(filters, callback) {
 exports.addOne = function(listing, images, callback) {
   db.Listing.create(listing)
     .then(function(listing) {
-      console.log("listing create SUCCESS ==================", listing)
-      console.dir(images);
       if (images.length > 0) {
         _.each(images, function(image) {
-          console.log('image here ===============', image);
           var img = {
             path: 'uploads/' + image.filename,
             listingId: listing.listingId
           };
           db.Image.create(img)
             .then(function(image) {
-              console.log('Image upload successful==================');
+              console.log('Image upload successful');
             })
             .catch(function(error) {
-              console.error('image upload error ================', error);
+              console.error('image upload error', error);
             });
         });
       }
