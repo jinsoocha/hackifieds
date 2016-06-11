@@ -1,8 +1,8 @@
 import FilterView from './filterView.jsx';
 import ListEntryView from './listEntryView.jsx';
 import DirectionView from './directionView.jsx';
-
 import helpers from '../lib/helpers.js';
+import { Row, Col, Jumbotron, Panel, Button } from 'react-bootstrap';
 
 class ListingView extends React.Component {
   constructor (props) {
@@ -13,6 +13,7 @@ class ListingView extends React.Component {
       locationForMap: '',
     };
   }
+  
   componentWillMount() {
     let type = this.props.location.query.type || 'rent';
     this.setState({
@@ -44,13 +45,17 @@ class ListingView extends React.Component {
 
   render () {
     return (
-      <div>
-        <FilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
+      <Row>
+        <Col md={3}>
+          <FilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
+        </Col>
+        <Col md={9}>
         <DirectionView location={this.state.locationForMap} />
         {this.state.listings.map((listing, i) =>
-          <ListEntryView key={i} show={this.showDirection.bind(this)} listing={listing} />
+          <ListEntryView key={i} currentUser={this.props.user} show={this.showDirection.bind(this)} listing={listing} />
         )}
-      </div>
+        </Col>
+      </Row>
     );
   }
 };
