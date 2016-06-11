@@ -4,6 +4,7 @@ var _ = require('underscore');
 //Controller method - retrieve joined listing/user/category fields from DB
 exports.getAll = function(category, callback) {
   // Listing.findAll({ order: ['createdAt', 'DESC'] })
+  console.log('$$$cat: ', category);
   db.Listing.findAll({
     include:
     [{
@@ -57,6 +58,12 @@ exports.getFiltered = function(filters, callback) {
       filteredWhere.distance = distance;
     } else {
         delete filteredWhere.distance;
+    }
+
+    if (filters.roomtype !== undefined) {
+      filteredWhere.roomtype = filters.roomtype;
+    } else {
+      delete filteredWhere.roomtype;
     }
 
   }
