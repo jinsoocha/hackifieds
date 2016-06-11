@@ -1,3 +1,5 @@
+import { Modal } from 'react-bootstrap';
+
 class DirectionView extends React.Component {
   constructor (props) {
     super(props);
