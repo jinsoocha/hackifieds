@@ -38,7 +38,7 @@ var Listing = db.define('Listing', {
   listingId: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
   title: { type: Sequelize.STRING(100), allowNull: false },
   description: { type: Sequelize.TEXT, allowNull: false },
-  location: { type: Sequelize.STRING(100), allowNull: false },
+  location: { type: Sequelize.STRING(100) },
   price: { type: Sequelize.DECIMAL(10, 2) },
   startDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
   endDate: { type: Sequelize.DATE },
