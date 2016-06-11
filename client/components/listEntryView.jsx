@@ -3,6 +3,7 @@ import helper from '../lib/helpers';
 
 const ListEntryView = (props) => {
   const { Images, description, price, location, roomtype, distance, createdAt } = props.listing;
+  console.log('$$$images: ', props.images)
   const dollarPrice = price ? '$' + price : '';
 
   const handleClick = (e) => {
@@ -12,13 +13,13 @@ const ListEntryView = (props) => {
   return (
     <div>
       <Jumbotron>
-        <Panel>          
+        <Panel>
           <Row>
             <Col md={6}>
               {Images.map((image, i) =>
                 <div key={i}>
                   <img src={image.path} width="300px"/>
-                </div>)} 
+                </div>)}
             </Col>
             <Col md={2}>{helper.dateFormatter(createdAt)}</Col>
             <Col md={2}>{dollarPrice}</Col>

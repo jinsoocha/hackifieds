@@ -91,6 +91,7 @@ exports.getFiltered = function(filters, callback) {
 
 //Controller method - add a listings to DB
 exports.addOne = function(listing, images, callback) {
+  console.log('$$$images: ', images);
   db.Listing.create(listing)
     .then(function(listing) {
       if (images.length > 0) {
