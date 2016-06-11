@@ -1,8 +1,8 @@
 import FilterView from './filterView.jsx';
 import ListEntryView from './listEntryView.jsx';
 import DirectionView from './directionView.jsx';
-
 import helpers from '../lib/helpers.js';
+import { Row, Col, Jumbotron, Panel, Button } from 'react-bootstrap';
 
 class ListingView extends React.Component {
   constructor (props) {
@@ -15,6 +15,7 @@ class ListingView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
     let type;
     type = nextProps.location.query.type || 'rent';
     this.setState({

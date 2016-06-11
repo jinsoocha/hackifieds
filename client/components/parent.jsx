@@ -1,4 +1,6 @@
 import helpers from '../lib/helpers.js';
+import { PageHeader, Grid, Row, Col, ButtonToolbar, ButtonGroup, Button, Jumbotron } from 'react-bootstrap';
+
 
 class Parent extends React.Component {
   constructor(props) {
@@ -18,26 +20,34 @@ class Parent extends React.Component {
   }
   render() {
     let loginButton;
+    let welcomeMsg;
     if(Object.keys(this.state.currentUser).length === 0) {
-      loginButton = <a className="btn top-btn" href="/auth/github">Login with GitHub</a>;
+      loginButton = <Button bsSize="xsmall" href="/auth/github">Login with GitHub</Button>;
     } else {
-      loginButton = <a className="btn top-btn" href="/api/logout">Logout</a>;
+      loginButton = <Button bsSize="xsmall" href="/api/logout">Logout</Button>;
+      welcomeMsg = <span>Welcome {this.state.currentUser.firstName}!</span>;
     }
 
     return (
-      <div>
-        {loginButton}
-        <div>
-          <div><Link to={{ pathname: '/', query: { type: 'rent' } }}>Rent</Link></div>
-          <div><Link to={{ pathname: '/', query: { type: 'buy' } }}>Buy</Link></div>
-          <div><Link to={{ pathname: '/', query: { type: 'hack' } }}>Hack</Link></div>
-          <div><Link to="post">Post</Link></div>
-        </div>
+      <Grid>
+        <PageHeader>
+          <span>Hackifieds </span>
+          <small>{welcomeMsg}</small>
+          <ButtonToolbar className="pull-right">
+            {loginButton}
+            <Button bsSize="xsmall"><Link to={{ pathname: '/', query: { type: 'rent' } }}>Rent</Link></Button>
+            <Button bsSize="xsmall"><Link to={{ pathname: '/', query: { type: 'buy' } }}>Buy</Link></Button>
+            <Button bsSize="xsmall"><Link to={{ pathname: '/', query: { type: 'hack' } }}>Hack</Link></Button>
+            <Button bsSize="xsmall"><Link to="post">Post</Link></Button>
+          </ButtonToolbar>
+        </PageHeader>
+        <Grid>
         {React.cloneElement(this.props.children, { user: this.state.currentUser })}
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 };
-  
+
 
 export default Parent;
