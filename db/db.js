@@ -55,13 +55,24 @@ var Image = db.define('Image', {
   path: { type: Sequelize.TEXT, allowNull: false }
 });
 
+// Image model
+var Comment = db.define('Comment', {
+  commentId: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  private: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+  text: { type: Sequelize.STRING(255), allowNull: true },
+});
+
 // define foreign key relationships
 User.hasMany(Listing, { foreignKey: { name: 'userId', allowNull: false } });
 Listing.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false } });
 Category.hasMany(Listing, { foreignKey: { name: 'categoryId', allowNull: false } });
 Listing.belongsTo(Category, { foreignKey: { name: 'categoryId', allowNull: false } });
 Listing.hasMany(Image, { foreignKey: { name: 'listingId', allowNull: false } });
+Listing.hasMany(Comment, { foreignKey: { name: 'listingId', allowNull: false } });
 Image.belongsTo(Listing, { foreignKey: { name: 'listingId', allowNull: false } });
+Comment.belongsTo(Listing, { foreignKey: { name: 'listingId', allowNull: false } });
+Comment.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false } });
+Comment.hasOne(Comment, { as: 'Parent', foreignKey: { name: 'parentId', allowNull: true } });
 
 // Sync database
 User.sync()
@@ -96,6 +107,14 @@ Image.sync()
     console.log( 'Unable to create/fetch Images table: ' + err );
   });
 
+Comment.sync()
+  .then( function () {
+    console.log( 'Created (or fetched existing) Comments table.' );
+  })
+  .catch( function (err) {
+    console.log( 'Unable to create/fetch Comments table: ' + err );
+  });
+
 db.sync()
 // db.sync( { force: true } ) // use this line instead of above to overwrite with new schemas
   .then( function () {
@@ -109,4 +128,5 @@ exports.User = User;
 exports.Category = Category;
 exports.Listing = Listing;
 exports.Image = Image;
+exports.Comment = Comment;
 

@@ -19,6 +19,11 @@ exports.getAll = function(category, callback) {
     {
       model: db.Image,
       attributes: ['path']
+    },
+    {
+      model: db.Comment,
+      attributes: ['commentId', 'private', 'text', 'parentId'],
+      order: 'createdAt DESC'
     }],
     order: 'createdAt DESC'
   })
@@ -82,6 +87,11 @@ exports.getFiltered = function(filters, callback) {
     {
       model: db.Image,
       attributes: ['path']
+    },
+    {
+      model: db.Comment,
+      attributes: ['commentId', 'private', 'text', 'parentId'],
+      order: 'createdAt DESC'
     }],
     order: 'createdAt DESC',
     where: filteredWhere
@@ -123,4 +133,29 @@ exports.addOne = function(listing, images, callback) {
       callback(404, error);
     });
 };
-
+//Controller method - get detailed entry view
+exports.getOne = function(id, callback) {
+  db.Listing.findOne({
+    include:
+    [{
+      model: db.User,
+      attributes: ['username', 'phone', 'email']
+    },
+    {
+      model: db.Image,
+      attributes: ['path']
+    },
+    {
+      model: db.Comment,
+      attributes: ['commentId', 'private', 'text', 'parentId']
+    }],
+    where: {listingId: id}
+  })
+    .then(function(listing) {
+      callback(201, listing.dataValues);
+    })
+    .catch(function(error) {
+      console.error(error);
+      callback(404, error);
+    });
+};

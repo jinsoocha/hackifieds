@@ -32,7 +32,29 @@ const getFilteredResults = (data, callback) => {
   })
 }
 
+let getDetailedListing = (id, callback) => {
+  $.ajax({
+    url: '/api/entryDetail',
+    method: 'GET',
+    contentType: 'application/json',
+    data: {id},
+    success: data => callback(data),
+    error: err => console.log( 'Error getting listings from server.', err)
+  });
+};
+let postComment = (formData, callback) => {
+  console.log('formdata', formData)
+  $.ajax({
+    url: '/api/addComment',
+    method: 'POST',
+    data: formData,
+    success: data => callback(data),
+    error: err => console.log( 'Error sending listing to server.', err)
+  });
+};
+
 const postListing = (formData, callback) => {
+  console.log('sending new listing:', formData);
   $.ajax({
     url: '/api/listings',
     method: 'POST',
@@ -91,5 +113,5 @@ const dateFormatter = date => {
   return months[month] + ' ' + day;
 };
 
-export default { getCategories, getListings, postListing, userAuth, dateFormatter, logout, getFilteredResults};
+export default { getCategories, getListings, postListing, userAuth, dateFormatter, logout, getFilteredResults, getDetailedListing, postComment};
 

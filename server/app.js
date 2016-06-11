@@ -12,6 +12,8 @@ var request = require('request');
 var db = require('../db/db');
 var listingsCtrl = require('./controllers/listingsController');
 var categoriesController = require('./controllers/categoriesController');
+var commentsController = require('./controllers/commentsController');
+
 var github = require('./auth/github_oauth');
 var upload = multer({dest: 'uploads/'});
 
@@ -27,6 +29,7 @@ passport.deserializeUser(function(obj, done) {
 var app = express();
 
 // use express middleware
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
@@ -180,6 +183,20 @@ app.route('/api/filters')
       res.status(statusCode).send(results);
     });
   });
+
+app.route('/api/entryDetail')
+  .get(function(req, res) {
+    
+    listingsCtrl.getOne(req.query.id, function(statusCode, results) {
+      console.log('results:', results);
+      res.status(statusCode).send(results);
+    });
+  });
+
+app.post('/api/addComment', commentsController.postComment); 
+app.post('/api/deleteComment/:listingId/:commentId', commentsController.deleteComment);
+app.get('/api/getComments/:listingId', commentsController.getComments);
+
 
 // Start server, listen for client requests on designated port
 console.log( 'hackifieds server listening on 3000....' );
