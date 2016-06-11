@@ -60,7 +60,7 @@ exports.getFiltered = function(filters, callback) {
         delete filteredWhere.distance;
     }
 
-    if (filters.roomtype !== undefined) {
+    if (filters.roomtype !== undefined && filters.roomtype !== 'All') {
       filteredWhere.roomtype = filters.roomtype;
     } else {
       delete filteredWhere.roomtype;
