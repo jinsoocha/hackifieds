@@ -1,4 +1,4 @@
-import FilterView from './filterView.jsx';
+import RentFilterView from './filterView.jsx';
 import ListEntryView from './listEntryView.jsx';
 import DirectionView from './directionView.jsx';
 
@@ -22,7 +22,7 @@ class ListingView extends React.Component {
       page: type,
       locationForMap: '',
     });
-    helpers.getListings(type, data => this.setState({listings: data}) )
+    helpers.getListings(type, data => this.setState({listings: data}))
   }
 
   showDirection(location) {
@@ -34,14 +34,14 @@ class ListingView extends React.Component {
   // ****** FILTERING ****** \\
   handleFilterItemClick(data) {
     this.state.data[data[0]] = data[1];
-    console.log('statedata', this.state.data);
+    this.state.data.category = this.state.page;
     helpers.getFilteredResults(this.state.data, filters => this.setState({listings: filters}));
   }
 
   render () {
     return (
       <div>
-        <FilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
+        <RentFilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
         <DirectionView location={this.state.locationForMap} />
         {this.state.listings.map((listing, i) =>
           <ListEntryView key={i} show={this.showDirection.bind(this)} listing={listing} />

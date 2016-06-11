@@ -1,4 +1,4 @@
-const FilterView = (props) => {
+const RentFilterView = (props) => {
 
   const handleFilterSubmit = function(e) {
     const target = e.target.name
@@ -10,7 +10,6 @@ const FilterView = (props) => {
     } else if (target === 'RoomType') {
       data = ['roomtype', e.target.value];
     }
-    // data = ['category', props.page];
     console.log('filterdata', data);
     props.handleClick(data);
   }
@@ -51,4 +50,4 @@ const FilterView = (props) => {
   );
 };
 
-export default FilterView;
+export default RentFilterView;

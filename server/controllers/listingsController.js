@@ -33,7 +33,6 @@ exports.getAll = function(category, callback) {
 // Controller method - get filtered results
 exports.getFiltered = function(filters, callback) {
   // constructing where object body
-  console.log('filters', filters);
   let filteredWhere = {};
   if (Object.keys(filters).length <= 1) {
     filteredWhere = {};
@@ -41,22 +40,23 @@ exports.getFiltered = function(filters, callback) {
     // filter price
     // ********** RENT ********** \\
     if (filters.price !== undefined) {
-      if (filters.price[0] !== undefined && filters.price[1] !== undefined) {
+      if (filters.price.split(',')[0] !== undefined && filters.price.split(',')[1] !== undefined) {
         price = {$gte: filters.price.split(',')[0], $lte: filters.price.split(',')[1]};
       } else {
         price = {$gte: filters.price.split(',')[0]};
       }
       filteredWhere.price = price;
-      console.log(filteredWhere.price);
     }
     // filter location
-    if (filters.distance !== undefined) {
+    if (filters.distance !== undefined && filters.distance !== 'All') {
       if (filters.distance !== '11') {
-        distance = {$lte: filters.distance};
+        distance = {$lte: +filters.distance};
       } else {
-        distance = {$gte: filters.distance};
+        distance = {$gte: +filters.distance};
       }
       filteredWhere.distance = distance;
+    } else {
+      filteredWhere.distance = {};
     }
   }
   db.Listing.findAll({
