@@ -15,3 +15,14 @@
 .indent {
   margin-left: 15px;
 }
+.post-margin-bottom {
+  padding-bottom: 50px;
+}
+
+#contents {
+  text-align: center;
+}
+
+h3 {
+ margin: 0 0 10px 0; 
+}

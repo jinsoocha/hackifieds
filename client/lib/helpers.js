@@ -61,7 +61,12 @@ const postListing = (formData, callback) => {
     processData: false,
     data: formData,
     success: data => callback(data),
-    error: err => console.log( 'Error sending listing to server.', err),
+    error: err => {
+      if (!formData.userId) {
+        alert('You have to be logged in to post');
+      }
+      console.log( 'Error sending listing to server.', err)
+    },
   });
 };
 

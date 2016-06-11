@@ -6,6 +6,7 @@ import CommentComponent from './comments.jsx';
 const ListEntryView = (props) => {
   const { contactNum, title, User, Images, description, price, location, roomtype, distance, createdAt, Comments, listingId } = props.listing;
   const dollarPrice = price ? '$' + price : '';
+
   const handleClick = (e) => {
     e.preventDefault();
     props.show(location);
@@ -25,6 +26,7 @@ const ListEntryView = (props) => {
 
 
   //console.log(JSON.stringify(props.listing))
+
   let image;
   if(Images.length > 0) {
     image = <img height="200px" width="300px" src={Images[0].path}/>
@@ -46,9 +48,27 @@ const ListEntryView = (props) => {
     contact = <div>Email: {User.email}<br/>Phone: {contactNum}</div>;
   }
 
-  
-
-
+  let filteredInfo
+  if(props.page === 'rent') {
+    filteredInfo =             
+      <div>
+        <Button bsSize="small" onClick={handleClick}>Show direction to Hack Reactor</Button><br/>
+        Where: {location}<br/>
+        Price: ${price}<br/>
+        Distance from Hack Reactor: {distance}<br/>
+        Roomtype: {roomtype}
+      </div>
+  } else if(props.page === 'buy') {
+    filteredInfo = 
+      <div>
+        Price: ${price}<br/>
+      </div>    
+  } else if(props.page === 'hack') {
+    filteredInfo = 
+      <div>
+        Where: {location}<br/>
+      </div>    
+  }
 
   return (
     <div>
@@ -58,18 +78,9 @@ const ListEntryView = (props) => {
             {image}
           </Col>
           <Col md={5}>
-            <Button bsSize="small" onClick={handleClick}>Show direction to Hack Reactor</Button>
-            <br/>
             <h3>Title: {title}</h3>
-            Where: {location}
-            <br/>
+            {filteredInfo}
             {contact}
-            Price: ${price}
-            <br/>
-            Distance from Hack Reactor: {distance}
-            <br/>
-            Roomtype: {roomtype}
-            <br/>
             Description: {description}
           </Col>
           <Col md={2}>

@@ -36,6 +36,7 @@ exports.getAll = function(category, callback) {
 };
 
 //Controller method - add a listings to DB
+//Controller method - add a listings to DB
 exports.addOne = function(listing, images, callback) {
   db.Listing.create(listing)
     .then(function(listing) {
