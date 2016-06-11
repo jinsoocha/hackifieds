@@ -15,7 +15,6 @@ class ListingView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     let type;
     type = nextProps.location.query.type || 'rent';
     this.setState({

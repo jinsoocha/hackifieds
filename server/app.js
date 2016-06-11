@@ -136,8 +136,6 @@ app.route('/api/listings')
           if (distanceData.routes.length > 0) {
             var distance = distanceData.routes[0].legs[0].distance.text;
             req.body.distance = distance;
-            req.body.userId=1;
-            req.body.categoryId=2;
             console.log('distance inserted', req.body);
             listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
               res.status(statusCode).send(results.dataValues);
