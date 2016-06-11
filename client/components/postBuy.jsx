@@ -38,7 +38,7 @@ const PostBuy = (props) => {
   
   return (
     <form>
-      <h1>Buy</h1>
+      <h1 className="text-center">Buy</h1>
       <FormGroup>
         <ControlLabel>Title</ControlLabel>
         <FormControl

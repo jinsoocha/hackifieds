@@ -119,12 +119,11 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
-    req.body.userId = 1;
     console.log('------------------------------------------')
     console.dir(req.body);
     console.log('------------------------------------------')
     // show map only on the rental form
-    if (req.body.categoryId === 1) {
+    if (req.body.categoryId === '1') {
       console.log('receiving location', req.body.location);
       let distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=' + github.GoogleMapAPIKey;
       let options = {
@@ -141,14 +140,18 @@ app.route('/api/listings')
               let distance = distanceData.routes[0].legs[0].distance.text;
               req.body.distance = distance;
               console.log('distance inserted', req.body);
+              listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+                res.status(statusCode).send(results.dataValues);
+              });
             }
           }
         }
       });
+    } else {
+      listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+        res.status(statusCode).send(results.dataValues);
+      });
     }
-    listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-      res.status(statusCode).send(results.dataValues);
-    });
   });
 
 app.route('/api/categories')

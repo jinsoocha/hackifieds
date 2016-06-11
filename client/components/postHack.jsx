@@ -38,7 +38,7 @@ const PostHack = (props) => {
   
   return (
     <form>
-      <h1>Hack</h1>
+      <h1 className="text-center">Hack</h1>
       <FormGroup>
         <ControlLabel>Title</ControlLabel>
         <FormControl

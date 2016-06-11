@@ -25,7 +25,7 @@ const ListEntryView = (props) => {
             <Col md={2}>{distance}</Col>
             <Col md={2}>{location}</Col>
             <Col md={2}>{roomtype}</Col>
-            <Col md={6} className="text-left">{description}</Col>
+            <Col md={6}>{description}</Col>
           </Row>
         </Panel>
       </Jumbotron>

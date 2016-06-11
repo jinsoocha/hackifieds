@@ -34,7 +34,7 @@ const PostRent = (props) => {
 
   return (
     <form>
-      <h1>Rent</h1>
+      <h1 className="text-center">Rent</h1>
       <FormGroup>
         <ControlLabel>Title</ControlLabel>
         <FormControl
