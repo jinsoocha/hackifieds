@@ -12,11 +12,12 @@ const Post = (props) => {
       <Row className="text-center">      
         <ButtonGroup>
           <Button onClick={handleSubmit} value="rent">Rent</Button>
-          <Button onClick={handleSubmit} value="buy">Buy</Button>
+          <Button onClick={handleSubmit} value="buy">Sell</Button>
           <Button onClick={handleSubmit} value="hack">Hack</Button>
         </ButtonGroup>
       </Row>
       <PostEntry user={user.userId} formType={formType} />
+      <Row className="post-margin-bottom"></Row>
     </Grid>
   );
 }
