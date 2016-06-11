@@ -1,16 +1,16 @@
-const FilterView = (props) => {
+const RentFilterView = (props) => {
 
-  const data = {};
   const handleFilterSubmit = function(e) {
     const target = e.target.name
+    let data;
     if (target === 'Distance') {
-      data.distance = e.target.value;
+      data = ['distance', e.target.value];
     } else if (target === 'Price') {
-      data.price = e.target.value;
+      data = ['price', e.target.value];
     } else if (target === 'RoomType') {
-      data.roomtype = e.target.value;
+      data = ['roomtype', e.target.value];
     }
-    data.category = props.page;
+    console.log('filterdata', data);
     props.handleClick(data);
   }
 
@@ -41,13 +41,13 @@ const FilterView = (props) => {
       <h4>Room Type</h4>
         <select name="RoomType" id="roomtype" onChange={handleFilterSubmit.bind(this)}>
             <option value="All">All</option>
-            <option value="Private">Private</option>
-            <option value="Shared">Shared</option>
-            <option value="House">House</option>
+            <option value="Private room">Private room</option>
+            <option value="Shared room">Shared room</option>
+            <option value="Entire home/apt">Entire home/apt</option>
         </select>
       </div>
     </form>
   );
 };
 
-export default FilterView;
+export default RentFilterView;

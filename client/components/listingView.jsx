@@ -1,4 +1,4 @@
-import FilterView from './filterView.jsx';
+import RentFilterView from './filterView.jsx';
 import ListEntryView from './listEntryView.jsx';
 import DirectionView from './directionView.jsx';
 import helpers from '../lib/helpers.js';
@@ -11,9 +11,10 @@ class ListingView extends React.Component {
       page: 'rent',
       listings: [],
       locationForMap: '',
+      data: {},
     };
   }
-  
+
   componentWillMount() {
     let type = this.props.location.query.type || 'rent';
     this.setState({
@@ -29,7 +30,7 @@ class ListingView extends React.Component {
       page: type,
       locationForMap: '',
     });
-    helpers.getListings(type, data => this.setState({listings: data}) )
+    helpers.getListings(type, data => this.setState({listings: data}))
   }
 
   showDirection(location) {
@@ -40,7 +41,11 @@ class ListingView extends React.Component {
 
   // ****** FILTERING ****** \\
   handleFilterItemClick(data) {
-    helpers.getFilteredResults(data, filters => this.setState({listings: filters}));
+    this.state.data[data[0]] = data[1];
+    this.state.data.category = this.state.page;
+    console.log('statedata', this.state.data);
+    helpers.getFilteredResults(this.state.data, filters => this.setState({listings: filters}));
+    // helpers.getFilteredResults(this.state.data, filters => console.log('listings: ', JSON.stringify(filters)));
   }
 
   refresh() {
@@ -52,7 +57,7 @@ class ListingView extends React.Component {
     return (
       <Row>
         <Col md={3}>
-          <FilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
+          <RentFilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
         </Col>
         <Col md={9}>
         <DirectionView location={this.state.locationForMap} />

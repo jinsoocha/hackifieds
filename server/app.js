@@ -53,7 +53,7 @@ passport.use(new GitHubStrategy({
 },
 function(accessToken, refreshToken, profile, done) {
   console.log('profile: ', profile);
-  orgs = 'https://api.github.com/users/' + profile.username + '/orgs?client_id=' + github.GITHUB_CLIENT_ID + '&client_secret=' + github.GITHUB_CLIENT_SECRET;  
+  orgs = 'https://api.github.com/users/' + profile.username + '/orgs?client_id=' + github.GITHUB_CLIENT_ID + '&client_secret=' + github.GITHUB_CLIENT_SECRET;
   var options = {
     url: orgs,
     headers: {
@@ -138,12 +138,10 @@ app.route('/api/listings')
           return console.log(err);
         } else {
           let distanceData = JSON.parse(data.body);
-          console.log(typeof distanceData, distanceData);
           if (distanceData.status === 'OK' && distanceData.routes) {
             if (distanceData.routes.length > 0) {
               let distance = distanceData.routes[0].legs[0].distance.text;
               req.body.distance = distance;
-              console.log('distance inserted', req.body);
               listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
                 res.status(statusCode).send(results.dataValues);
               });
@@ -181,10 +179,8 @@ app.get('/api/logout', function(req, res) {
 // ********** FILTERING ********** \\
 app.route('/api/filters')
   .get(function(req, res) {
-    console.log('$$$$req', req.query);
     listingsCtrl.getFiltered(req.query, function(statusCode, results) {
       res.status(statusCode).send(results);
-      console.log('$$$$results', results);
     });
   });
 

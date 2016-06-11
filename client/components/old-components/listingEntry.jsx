@@ -12,7 +12,7 @@ import helper from '../lib/helpers';
 //     <Col xs={1} sm={1} md={1}>{props.listing.description}</Col>
 //     <Col xs={1} sm={1} md={1}>{props.listing.roomtype}</Col>
 //     <Col xs={1} sm={1} md={1}>{props.listing.distance}</Col>
-//   </Row>  
+//   </Row>
 // );
 
 const ListingEntry = (props) => {
@@ -20,7 +20,7 @@ const ListingEntry = (props) => {
   const { description, price, location, roomtype, distance, createdAt } = props.listing;
   const profileImg = <img src={profilePic} alt="Profile Pic" width="80px" />;
   const houseImg = <img src={housePic} alt="housePic" width="300px"/>;
-  const header = 
+  const header =
     <Row>
       <Col md={2}>{helper.dateFormatter(createdAt)}</Col>
       <Col md={2}>${price}</Col>
@@ -50,11 +50,11 @@ const ListingEntry = (props) => {
 export default ListingEntry;
 
 // Things to have on each entry
-// 1. Date, 
+// 1. Date,
 // 2. House picture,
-// 3. Profile picture, 
+// 3. Profile picture,
 // 4. Price,
-// 5. Location, 
-// 6. Distance, 
-// 7. Description, 
+// 5. Location,
+// 6. Distance,
+// 7. Description,
 // 8. Room type (private or shared)
