@@ -1,6 +1,6 @@
 import helpers from '../lib/helpers.js';
+import { PageHeader, Grid, Row, Col, ButtonToolbar, ButtonGroup, Button, Jumbotron } from 'react-bootstrap';
 import Post from './post.jsx';
-import { Grid, Row, Col, Nav, ButtonGroup, Button } from 'react-bootstrap';
 
 class Parent extends React.Component {
   constructor(props) {
@@ -25,49 +25,31 @@ class Parent extends React.Component {
   }
 
   render() {
-    const loginButton = (Object.keys(this.state.currentUser).length === 0) ? 
-      <Button href="/auth/github">Login with GitHub</Button> : 
-      <Button href="/api/logout">Logout</Button>;
+    let loginButton;
+    let welcomeMsg;
+    if(Object.keys(this.state.currentUser).length === 0) {
+      loginButton = <Button href="/auth/github">Login with GitHub</Button>;
+    } else {
+      loginButton = <Button href="/api/logout">Logout</Button>;
+      welcomeMsg = <span>Welcome {this.state.currentUser.firstName}!</span>;
+    }
 
     return (
-      <Grid>           
-        {loginButton}
-        <ButtonGroup>
-          <Button>
-            <Link to={{ 
-              pathname: '/', 
-              query: { 
-                type: 'rent' 
-              } }}>Rent</Link>
-          </Button>
-
-          <Button>
-            <Link to={{ 
-              pathname: '/', 
-              query: { 
-                type: 'buy' 
-              } }}>Buy</Link>
-          </Button>
-
-          <Button>
-            <Link to={{ 
-              pathname: '/', 
-              query: { 
-                type: 'hack' 
-              } 
-            }}>Hack</Link>
-          </Button>
-
-          <Button>
-            <Link to={{ 
-              pathname: '/post',
-            }}>Post</Link>
-          </Button>
-        </ButtonGroup>
-      
+      <Grid>
+        <PageHeader>
+          <span>Hackifieds </span>
+          <small>{welcomeMsg}</small>
+          <ButtonGroup className="pull-right">
+            {loginButton}
+            <Button><Link to={{ pathname: '/', query: { type: 'rent' } }}>Rent</Link></Button>
+            <Button><Link to={{ pathname: '/', query: { type: 'buy' } }}>Buy</Link></Button>
+            <Button><Link to={{ pathname: '/', query: { type: 'hack' } }}>Hack</Link></Button>
+            <Button><Link to="post">Post</Link></Button>
+          </ButtonGroup>
+        </PageHeader>
         <Grid>
           {React.cloneElement(this.props.children, { 
-            user: this.state.currentUser, 
+            user: this.state.currentUser,
             formType: this.state.filterType, 
             changeFilter: this.changeFilterType.bind(this)
           })}
@@ -76,6 +58,6 @@ class Parent extends React.Component {
     );
   }
 };
-  
+
 
 export default Parent;
