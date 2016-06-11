@@ -40,7 +40,6 @@ const ListEntryView = (props) => {
         </Row>
       </Panel>
     </div>
-
   );
 };
 
