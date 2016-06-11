@@ -52,7 +52,6 @@ let postComment = (formData, callback) => {
   });
 };
 
-
 const postListing = (formData, callback) => {
   console.log('sending new listing:', formData);
   $.ajax({
