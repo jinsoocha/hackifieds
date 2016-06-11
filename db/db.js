@@ -46,6 +46,7 @@ var Listing = db.define('Listing', {
   roomtype: { type: Sequelize.STRING(100) },
   distance: { type: Sequelize.STRING(100) },
   duration: { type: Sequelize.STRING(100) },
+  email: { type: Sequelize.STRING(100) }
 });
 
 // Image model
