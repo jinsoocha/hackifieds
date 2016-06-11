@@ -81,23 +81,28 @@ exports.getFiltered = function(filters, callback) {
 
 //Controller method - add a listings to DB
 exports.addOne = function(listing, images, callback) {
+
   db.Listing.create(listing)
     .then(function(listing) {
+      var img = {};
+
       if (images.length > 0) {
         _.each(images, function(image) {
-          var img = {
-            path: 'uploads/' + image.filename,
-            listingId: listing.listingId
-          };
-          db.Image.create(img)
-            .then(function(image) {
-              console.log('Image upload successful');
-            })
-            .catch(function(error) {
-              console.error('image upload error', error);
-            });
+          img.path = 'uploads/' + image.filename;
+          img.listingId = listing.listingId;
         });
+      } else {
+        img.path = 'uploads/default-img.png';
+        img.listingId = listing.listingId;
       }
+      db.Image.create(img)
+        .then(function(image) {
+          console.log('Image upload successful');
+        })
+        .catch(function(error) {
+          console.error('image upload error', error);
+        });
+
       callback(201, listing);
     })
     .catch(function(error) {

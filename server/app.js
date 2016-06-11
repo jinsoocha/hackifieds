@@ -122,6 +122,7 @@ app.route('/api/listings')
     console.log('------------------------------------------')
     console.dir(req.body);
     console.log('------------------------------------------')
+
     // show map only on the rental form
     if (req.body.categoryId === '1') {
       console.log('receiving location', req.body.location);
