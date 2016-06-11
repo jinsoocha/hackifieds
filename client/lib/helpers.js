@@ -33,7 +33,6 @@ const getFilteredResults = (data, callback) => {
   })
 }
 
-
 const postListing = (formData, callback) => {
   $.ajax({
     url: '/api/listings',
