@@ -13,8 +13,20 @@ class ListingView extends React.Component {
       locationForMap: '',
     };
   }
+  
+  componentWillMount() {
+    console.log(this.props.location.query.type)
+    let type;
+    type = this.props.location.query.type || 'rent';
+    this.setState({
+      page: type,
+      locationForMap: '',
+    });
+    helpers.getListings(type, data => this.setState({listings: data}) )
+  }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.location.query)
     let type;
     type = nextProps.location.query.type || 'rent';
     this.setState({
@@ -37,13 +49,17 @@ class ListingView extends React.Component {
 
   render () {
     return (
-      <div>
-        <FilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
+      <Row>
+        <Col md={3}>
+          <FilterView page={this.state.page} handleClick={this.handleFilterItemClick.bind(this)} />
+        </Col>
+        <Col md={9}>
         <DirectionView location={this.state.locationForMap} />
         {this.state.listings.map((listing, i) =>
-          <ListEntryView key={i} show={this.showDirection.bind(this)} listing={listing} />
+          <ListEntryView key={i} currentUser={this.props.user} show={this.showDirection.bind(this)} listing={listing} />
         )}
-      </div>
+        </Col>
+      </Row>
     );
   }
 };

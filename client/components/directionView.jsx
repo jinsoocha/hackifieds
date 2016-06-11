@@ -82,7 +82,7 @@ class DirectionView extends React.Component {
       );    
     } else {
       return (
-        <div>Welcome!</div>
+        <div></div>
       );
     }
   }

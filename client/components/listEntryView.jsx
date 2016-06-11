@@ -2,41 +2,62 @@ import { Row, Col, Jumbotron, Panel, Button } from 'react-bootstrap';
 import helper from '../lib/helpers';
 
 const ListEntryView = (props) => {
-  const { Images, description, price, location, roomtype, distance, createdAt } = props.listing;
-  const profileImg = <img src="../assets/tempProfile.png" alt="Profile Pic" width="80px"/>;
-  const houseImg = <img src="../assets/tempHouse.png" alt="housePic" width="300px"/>;
-
+  const { User, Images, description, price, location, roomtype, distance, createdAt } = props.listing;
   const handleClick = (e) => {
     e.preventDefault();
     props.show(location);
+  }
+
+  let image;
+  if(Images.length > 0) {
+    image = <img height="200px" width="300px" src={Images[0].path}/>
+  } else {
+    image = <img height="200px" width="300px" src='http://impactbuilders.com/images/no-image.png'/>
+  }
+
+  let profileImg;
+  if(User.profilePic) {
+    profileImg = <img height="100px" width="100px" src={User.profilePic}/>
+  } else {
+    profileImg = <img height="100px" width="100px" src='https://avatars1.githubusercontent.com/u/11582021?v=3&s=400'/>
+  }
+  let contact;
+  if(Object.keys(props.currentUser).length === 0) {
+    contact = <div style={{color:'red'}}>Login to see the contact information</div>;
+  } else {
+    contact = <div>Email: {User.email}<br/>Phone: {User.phone}</div>;
   }
 
   return (
     <div>
       <Panel>
         <Row>
-          <Col md={4}>
-          {Images.map(image =>
-            <div>
-              <img src={image.path}/>
-            </div>)}
+          <Col md={5}>
+            {image}
           </Col>
-          <Col md={6}>
-          {location}
-          <br/>
-          ${price}
-          <br/>
-          {distance}
-          <br/>
-          {roomtype}
-          <br/>
-          {description}
+          <Col md={5}>
+            <Button bsSize="small" onClick={handleClick}>Show direction to Hack Reactor</Button>
+            <br/><br/>
+            Where: {location}
+            <br/>
+            {contact}
+            Price: ${price}
+            <br/>
+            Distance from Hack Reactor: {distance}
+            <br/>
+            Roomtype: {roomtype}
+            <br/>
+            Description: {description}
           </Col>
-          <Col md={2}>{profileImg}</Col>
+          <Col md={2}>
+            {profileImg}
+            <br/><br/><br/>
+            {User.firstName} {User.lastName}
+            <br/>
+            on {helper.dateFormatter(createdAt)}
+          </Col>
         </Row>
         <Row>
-          <Col md={1}>{helper.dateFormatter(createdAt)}</Col>
-          <Button bsSize="small" onClick={handleClick}>Show direction to Hack Reactor</Button>
         </Row>
       </Panel>
     </div>
