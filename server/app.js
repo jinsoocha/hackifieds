@@ -122,30 +122,39 @@ app.route('/api/listings')
     });
   })
   .post(upload.array('images', 12), function(req, res) {
-    console.log(req.body);
-    console.log('receiving location', req.body.location);
-    var distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=' + github.GoogleMapAPIKey;
-    var options = {
-      url: distanceApi,
-    };
-    request(options, function (err, data) {
-      if (err) {
-        return console.log(err);
-      } else {
-        var distanceData = JSON.parse(data.body);
-        console.log(typeof distanceData, distanceData);
-        if (distanceData.status === 'OK' && distanceData.routes) {
-          if (distanceData.routes.length > 0) {
-            var distance = distanceData.routes[0].legs[0].distance.text;
-            req.body.distance = distance;
-            console.log('distance inserted', req.body);
-            listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
-              res.status(statusCode).send(results);
-            });
+    console.log('------------------------------------------')
+    console.dir(req.body);
+    console.log('------------------------------------------')
+    // show map only on the rental form
+    if (req.body.categoryId === '1') {
+      console.log('receiving location', req.body.location);
+      let distanceApi = 'https://maps.googleapis.com/maps/api/directions/json?origin=944+market+st+San+Francisco,+SF+94102&destination=' + req.body.location + '&key=' + github.GoogleMapAPIKey;
+      let options = {
+        url: distanceApi,
+      };
+      request(options, function (err, data) {
+        if (err) {
+          return console.log(err);
+        } else {
+          let distanceData = JSON.parse(data.body);
+          console.log(typeof distanceData, distanceData);
+          if (distanceData.status === 'OK' && distanceData.routes) {
+            if (distanceData.routes.length > 0) {
+              let distance = distanceData.routes[0].legs[0].distance.text;
+              req.body.distance = distance;
+              console.log('distance inserted', req.body);
+              listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+                res.status(statusCode).send(results.dataValues);
+              });
+            }
           }
         }
-      }
-    });
+      });
+    } else {
+      listingsCtrl.addOne(req.body, req.files, function(statusCode, results) {
+        res.status(statusCode).send(results.dataValues);
+      });
+    }
   });
 
 app.route('/api/categories')
