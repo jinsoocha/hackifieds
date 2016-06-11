@@ -6,7 +6,6 @@ class DirectionView extends React.Component {
   componentDidUpdate() {
     var context = this;
     if(this.props.location) {
-      console.log("here")
       window.directionsService = new google.maps.DirectionsService();
       window.directionsDisplay = new google.maps.DirectionsRenderer();
       var map;
@@ -54,7 +53,6 @@ class DirectionView extends React.Component {
     };
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
-        console.log(response)
         directionsDisplay.setDirections(response);
         var newDiv = document.getElementById("contents"); 
         newDiv.innerHTML = response.routes[0].legs[0].distance.text +" "+response.routes[0].legs[0].duration.text; 
@@ -82,7 +80,7 @@ class DirectionView extends React.Component {
       );    
     } else {
       return (
-        <div>Welcome!</div>
+        <div></div>
       );
     }
   }

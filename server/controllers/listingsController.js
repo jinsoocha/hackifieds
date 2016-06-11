@@ -13,7 +13,7 @@ exports.getAll = function(category, callback) {
     },
     {
       model: db.User,
-      attributes: ['username', 'phone', 'email']
+      attributes: ['firstName', 'lastName', 'phone', 'email', 'profilePic']
     },
     {
       model: db.Image,
