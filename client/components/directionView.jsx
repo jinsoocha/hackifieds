@@ -45,6 +45,7 @@ class DirectionView extends React.Component {
   }
 
   calcRoute() {
+    var context = this;
     var selectedMode = document.getElementById('travelType').value;
     var request = {
       origin: new google.maps.LatLng(markers[0][0], markers[0][1]),
@@ -55,7 +56,7 @@ class DirectionView extends React.Component {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         var newDiv = document.getElementById("contents"); 
-        newDiv.innerHTML = response.routes[0].legs[0].distance.text +" "+response.routes[0].legs[0].duration.text; 
+        newDiv.innerHTML = "Hack Reactor is " + response.routes[0].legs[0].distance.text + " away from " + context.props.location + "<br/><br/>It takes "+response.routes[0].legs[0].duration.text + " by " + selectedMode; 
       }
     });
   }
@@ -75,7 +76,7 @@ class DirectionView extends React.Component {
               <option value="TRANSIT">Transit</option>
             </select></p>
           </div>
-          <div id="contents"></div>
+          <h3 id="contents"></h3><br/><br/>
         </div>
       );    
     } else {
