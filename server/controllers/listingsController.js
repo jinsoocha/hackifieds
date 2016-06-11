@@ -30,55 +30,6 @@ exports.getAll = function(category, callback) {
     });
 };
 
-// Controller method - get filtered results
-exports.getFiltered = function(filters, callback) {
-  // constructing where object body
-  const filteredWhere = {};
-  if (Object.keys(filters).length <= 1) {
-    filteredWhere = {};
-  } else {
-    // filter price
-    // ********** RENT ********** \\
-    if (filters.price !== undefined) {
-      if (filters.price[0] !== undefined && filters.price[1] !== undefined) {
-        price = {$gte: filters.price.split(',')[0], $lte: filters.price.split(',')[1]};
-      } else {
-        price = {$gte: filters.price.split(',')[0]};
-      }
-      filteredWhere.price = price;
-      console.log(filteredWhere.price);
-    }
-    // filter location
-    if (filters.location !== undefined) { filteredWhere.location = filters.location; }
-  }
-  db.Listing.findAll({
-    include:
-    [{
-      model: db.Category,
-      attributes: ['categoryName'],
-      where: {categoryName: filters.category},
-    },
-    {
-      model: db.User,
-      attributes: ['username', 'phone', 'email']
-    },
-    {
-      model: db.Image,
-      attributes: ['path']
-    }],
-    order: 'createdAt DESC',
-    where: filteredWhere, raw: true
-  })
-    .then(function(listings) {
-      callback(200, listings);
-      console.log('$$$$listings', listings);
-    })
-    .catch(function(error) {
-      console.error(error);
-      callback(404, error);
-    });
-};
-
 //Controller method - add a listings to DB
 exports.addOne = function(listing, images, callback) {
   db.Listing.create(listing)
@@ -105,4 +56,29 @@ exports.addOne = function(listing, images, callback) {
       callback(404, error);
     });
 };
-
+//Controller method - get detailed entry view
+exports.getOne = function(id, callback) {
+  db.Listing.findOne({
+    include:
+    [{
+      model: db.User,
+      attributes: ['username', 'phone', 'email']
+    },
+    {
+      model: db.Image,
+      attributes: ['path']
+    },
+    {
+      model: db.Comment,
+      attributes: ['commentId', 'private', 'text', 'parentId']
+    }],
+    where: {listingId: id}
+  })
+    .then(function(listing) {
+      callback(201, listing.dataValues);
+    })
+    .catch(function(error) {
+      console.error(error);
+      callback(404, error);
+    });
+};

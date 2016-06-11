@@ -17,6 +17,10 @@ const ListEntryView = (props) => {
         <Panel>
           <Row>
             <Col md={2}>{helper.dateFormatter(createdAt)}</Col>
+
+    <Col md={2}><div><Link to={{ pathname: '/showListing', query: { listId: props.listing.listingId } }} >details</Link></div></Col>
+
+            
             <Col md={2}>${price}</Col>
             <Col md={2}>{distance}</Col>
             <Col md={2}>{location}</Col>
